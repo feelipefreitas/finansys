@@ -60,7 +60,12 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
   }
 
   private updateCategory() {
-    
+    const category: Category = Object.assign(new Category(), this.categoryForm.value);
+
+    this.categoryService.update(category).subscribe(
+      cat => this.actionsForSucess(cat),
+      error => this.actionsForError(error)
+    );
   }
 
   private actionsForSucess(category: Category) {
@@ -93,7 +98,7 @@ export class CategoryFormComponent implements OnInit, AfterContentChecked {
   private setCurrentAction() {
     if (this.route.snapshot.url[0].path === 'new')
       this.currentAction = 'new';
-    else 
+    else
       this.currentAction = 'edit';
   }
 
